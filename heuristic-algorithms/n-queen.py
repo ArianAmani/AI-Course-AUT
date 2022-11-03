@@ -3,6 +3,7 @@ import random
 import time
 import click
 
+
 class Board:
     def __init__(self, n, heuristic_function=1) -> None:
         """
@@ -89,8 +90,8 @@ class Board:
                         if row - i >= 0 and col + i < 8:
                             temp_score += board.state[row - i, col + i]
 
-                    if temp_score == 0: # If the queen is not under attack at all
-                        score += 1 # Increment the score
+                    if temp_score == 0:  # If the queen is not under attack at all
+                        score += 1  # Increment the score
         self.h_score = score
         return score
 
@@ -103,7 +104,7 @@ class Board:
             best_child_score = np.Inf
         elif self.heuristic_function == 2:
             best_child_score = -1
-            
+
         for row in range(self.n):
             for col in range(self.n):
                 if self.state[row, col] == 1:  # If there is a queen in this position
@@ -170,8 +171,10 @@ class Board:
         ):  # While the current state is not the goal state
             if verbose:
                 print(current_state.state)
-                print(f'Heuristic Score = {current_state.h_score}')
-                print('\n------------------------------------------------------------\n')
+                print(f"Heuristic Score = {current_state.h_score}")
+                print(
+                    "\n------------------------------------------------------------\n"
+                )
 
             if current_state != previous_state:
                 # Get the children only if the current state is
@@ -214,8 +217,10 @@ class Board:
         ):  # While the current state is not the goal state
             if verbose:
                 print(current_state.state)
-                print(f'Heuristic Score = {current_state.h_score}')
-                print('\n------------------------------------------------------------\n')
+                print(f"Heuristic Score = {current_state.h_score}")
+                print(
+                    "\n------------------------------------------------------------\n"
+                )
 
             if current_state != previous_state:
                 # Get the children only if the current state is
@@ -259,20 +264,22 @@ class Board:
         return True
 
 
-
 @click.command()
-@click.option('--n', '-n', default=8, help='The size of the board.')
-@click.option('--heuristic', default=1, help='The heuristic function to use.')
-@click.option('--randomness', is_flag=True, help='Use randomness in the algorithm.')
-@click.option('--time-out', default=-1, help='Time out in seconds.')
-@click.option('--verbose', is_flag=True, help='Print the steps of the algorithm.')
+@click.option("--n", "-n", default=8, help="The size of the board.")
+@click.option("--heuristic", default=1, help="The heuristic function to use.")
+@click.option("--randomness", is_flag=True, help="Use randomness in the algorithm.")
+@click.option("--time-out", default=-1, help="Time out in seconds.")
+@click.option("--verbose", is_flag=True, help="Print the steps of the algorithm.")
 def main(n, heuristic, randomness, time_out, verbose):
-    """
+    '''
     Example:
-    - python n-queen.py --n=16 --heuristic=1 --time-out=5 --verbose
-    - python n-queen.py --n=8 --heuristic=1 --randomness --verbose
-    - python n-queen.py --n=12 --heuristic=2 --randomness --time-out=30 --verbose
-    """
+    
+    python n-queen.py --n=1`6 --heuristic=1 --time-out=5 --verbose
+
+    python n-queen.py --n=8 --heuristic=1 --randomness --verbose
+
+    python n-queen.py --n=12 --he`uristic=2 --randomness --time-out=30 --verbose
+    '''
     if heuristic == 1:
         print("Heuristic function 1 is used.")
     elif heuristic == 2:
@@ -301,6 +308,7 @@ def main(n, heuristic, randomness, time_out, verbose):
         Board(n, heuristic).search(time_out, verbose)
 
     print(f"Time taken: {time.time() - start} seconds")
+
 
 if __name__ == "__main__":
     main()
